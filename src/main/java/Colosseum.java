@@ -102,8 +102,65 @@ public class Colosseum {
      * (Look, we can return objects too!)
      */
     public static Pokemon buildPokemon() {
-        Pokemon returnPokemon = null;
-        return returnPokemon;
+        int hp;
+        int defenseLevel;
+        int attackLevel;
+        int typeNo;
+        myScan = new Scanner(System.in);
+
+        System.out.println("Please name your Pokemon");
+        String name = myScan.nextLine();
+        do {
+            System.out.println("How many hit points will it have?");
+            hp = myScan.nextInt();
+            if(hp > 50 || hp < 1) {
+                System.out.println("Sorry. Hit points must be between 1 and 50");
+            }
+        }
+        while (hp < 1 || hp > 50);
+        do {
+            System.out.println("Split fifty points between attack level and defense level");
+            System.out.println("Enter your attack level (1-49)");
+            attackLevel = myScan.nextInt();
+            if (attackLevel > 49 || attackLevel < 1) {
+                System.out.println("Sorry.. The attack level must be between 1 and 49.");
+            }
+        }
+        while(attackLevel > 49 || attackLevel < 1);
+        do{
+            System.out.println("Enter your defense level (1-" + Integer.toString(50 - attackLevel) + ")");
+            defenseLevel = myScan.nextInt();
+            if (defenseLevel < 1 || defenseLevel +attackLevel > 50) {
+                System.out.println("Sorry. The defense level must be between 1 and " + Integer.toString(50 - attackLevel));
+            }
+        }
+        while (attackLevel + defenseLevel > 50 || defenseLevel < 1);
+        do {
+            System.out.println("Select from the following pokemon types:");
+            System.out.println("1 - Electric Pokemon");
+            System.out.println("2 - Fire Pokemon");
+            System.out.println("3 - Water Pokemon");
+            typeNo = myScan.nextInt();
+            if (typeNo > 3 || typeNo < 1) {
+                System.out.println("Sorry, You must pick 1, 2, or 3.");
+            }
+        } while (typeNo > 3 || typeNo < 1);
+        Pokemon tempPokemon = new Pokemon();
+        switch(typeNo) {
+            case (1): tempPokemon.pokeType = Pokemon.PokemonType.ELECTRIC;
+            break;
+            case (2): tempPokemon.pokeType = Pokemon.PokemonType.FIRE;
+            break;
+            case (3): tempPokemon.pokeType = Pokemon.PokemonType.WATER;
+            break;
+        }
+        tempPokemon.setName(name);
+        tempPokemon.setHitPoints(hp);
+        tempPokemon.setAttackLevel(attackLevel);
+        tempPokemon.setDefenseLevel(defenseLevel);
+
+
+        return tempPokemon;
     }
 
     /**

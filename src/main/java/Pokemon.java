@@ -94,6 +94,21 @@ public class Pokemon {
     }
 
     /**
+     * comment
+     * @param theOpponent the opponent
+     * @return if you can special attack
+     */
+    public boolean canSpecialAttack(Pokemon theOpponent) {
+        PokemonType opponentType = theOpponent.pokeType;
+        if (pokeType == PokemonType.ELECTRIC && opponentType == PokemonType.WATER) {
+            return true;
+        }
+        if (pokeType == PokemonType.WATER && opponentType == PokemonType.FIRE) {
+            return true;
+        }
+        return false;
+    }
+    /**
      * Get the attack level of the pokemon.
      * @return attackLevel the attack level of the pokemon
      */
@@ -151,7 +166,9 @@ public class Pokemon {
         this.name = theName;
     }
 
-
+    public void setPokeType(PokemonType pokeType) {
+        this.pokeType = pokeType;
+    }
 
     /**
      * Attack another Pokemon.
@@ -193,6 +210,10 @@ public class Pokemon {
          */
         if ((attackLevel + attackBonus) > (opponent.defenseLevel + defenseBonus)) {
             System.out.println("The attack hits dealing 3-D6 damage!");
+            if (this.canSpecialAttack(opponent)) {
+                totalDamage *= 2;
+                System.out.println("iT's SuPeR eFfEcTiVe");
+            }
             System.out.println("The rolls are " + damage1 + ", " + damage2 + ", " + "and "
                     + damage3 + " totaling: " + totalDamage + " damage!");
 
